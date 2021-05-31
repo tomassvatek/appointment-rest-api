@@ -1,0 +1,36 @@
+﻿using System.Linq;
+using Appoitment.Entities;
+
+namespace Appoitment.DataAccess
+{
+    public static class DbInitializer
+    {
+        public static void Initialize(AppointmentContext context)
+        {
+            context.Database.EnsureCreated();
+
+            if (context.Users.Any())
+                return;
+
+            var users = new[]
+            {
+                new User
+                {
+                    FirstName = "John", LastName = "Doe", CompanyName = "Company A", Email = "john.doe@gmail.com"
+                },
+                new User
+                {
+                    FirstName = "Jack", LastName = "Goodman", CompanyName = "Company B",
+                    Email = "jack.goodman@gmail.com"
+                }
+            };
+
+            foreach (var user in users)
+            {
+                context.Users.Add(user);
+            }
+
+            context.SaveChanges();
+        }
+    }
+}
