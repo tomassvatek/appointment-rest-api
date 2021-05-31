@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Appoitment.Entities;
 
 namespace Appoitment.DataAccess
@@ -16,12 +17,14 @@ namespace Appoitment.DataAccess
             {
                 new User
                 {
-                    FirstName = "John", LastName = "Doe", CompanyName = "Company A", Email = "john.doe@gmail.com"
+                    FirstName = "John", LastName = "Doe", CompanyName = "Company A", Email = "john.doe@gmail.com",
+                    EntityId = Guid.NewGuid()
                 },
                 new User
                 {
                     FirstName = "Jack", LastName = "Goodman", CompanyName = "Company B",
-                    Email = "jack.goodman@gmail.com"
+                    Email = "jack.goodman@gmail.com",
+                    EntityId = Guid.NewGuid()
                 }
             };
 

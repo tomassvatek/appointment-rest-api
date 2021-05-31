@@ -18,6 +18,7 @@ namespace Appoitment.DataAccess
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.Name).IsRequired();
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.Guests).IsRequired();
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.EntityId).IsRequired();
+            modelBuilder.Entity<Entities.Appointment>().HasIndex(s => s.EntityId);
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.EntityId).ValueGeneratedOnAdd();
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.CreatedById).IsRequired();
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.StartDate).IsRequired();
@@ -35,6 +36,7 @@ namespace Appoitment.DataAccess
             modelBuilder.Entity<Entities.User>().Property(s => s.LastName).IsRequired();
             modelBuilder.Entity<Entities.User>().Property(s => s.Email).IsRequired();
             modelBuilder.Entity<Entities.User>().Property(s => s.EntityId).IsRequired();
+            modelBuilder.Entity<Entities.User>().HasIndex(s => s.EntityId);
             modelBuilder.Entity<Entities.User>().Property(s => s.EntityId).ValueGeneratedOnAdd();
         }
     }
