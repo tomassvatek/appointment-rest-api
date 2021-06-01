@@ -1,20 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AppoitmentWebApp.Models
+namespace AppointmentWebApp.Models
 {
-    public class EditAppoitment
+    public class UpdateAppointment
     {
         [Required]
         [MaxLength(200)]
-        public string AppoitmentName { get; set; }
+        public string AppointmentName { get; set; }
         
         [Required]
         [MaxLength(500)]
         public string Guests { get; set; }
-        
-        [Required] 
-        public int CreatedByUser { get; set; }
         
         [Required]
         public DateTimeOffset StartDate { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Appoitment.Entities
+namespace Appointment.Entities
 {
     public class Appointment
     {

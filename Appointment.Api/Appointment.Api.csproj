@@ -6,11 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Appoitment.DataAccess\Appoitment.DataAccess.csproj" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.1" />
+      <ProjectReference Include="..\Appointment.DataAccess\Appointment.DataAccess.csproj" />
     </ItemGroup>
 
 

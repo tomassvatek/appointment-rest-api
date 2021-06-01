@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Appoitment.DataAccess.Repositories
+namespace Appointment.DataAccess.Repositories
 {
     public abstract class BaseRepository : IDisposable
     {
         protected AppointmentContext Context;
 
-        public BaseRepository(AppointmentContext context)
+        protected BaseRepository(AppointmentContext context)
         {
             Context = context;
         }
@@ -17,7 +17,7 @@ namespace Appoitment.DataAccess.Repositories
             GC.SuppressFinalize(this);
         }
         
-        protected void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!disposing) return;
             if (Context != null)

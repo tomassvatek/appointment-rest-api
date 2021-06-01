@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Appoitment.Entities
+namespace Appointment.Entities
 {
     public class User
     {

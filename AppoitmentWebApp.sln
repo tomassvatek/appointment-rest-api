@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.Api", "Appointment.Api\Appointment.Api.csproj", "{6B73BEAE-05AA-4A21-BB8D-57F1E42437B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appoitment.DataAccess", "Appoitment.DataAccess\Appoitment.DataAccess.csproj", "{F2E730A2-BFDF-4006-ACE8-F90779050B4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.DataAccess", "Appointment.DataAccess\Appointment.DataAccess.csproj", "{F2E730A2-BFDF-4006-ACE8-F90779050B4F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.Entities", "Appointment.Entities\Appointment.Entities.csproj", "{91F0FC83-F8D3-4DBC-BC6C-A160918BCC16}"
 EndProject

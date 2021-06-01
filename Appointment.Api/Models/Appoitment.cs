@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AppoitmentWebApp.Models
+namespace AppointmentWebApp.Models
 {
     public class Appoitment
     {

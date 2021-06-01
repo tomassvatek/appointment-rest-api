@@ -1,11 +1,12 @@
-using Appoitment.DataAccess;
+using Appointment.DataAccess;
+using AppointmentWebApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace AppoitmentWebApp
+namespace AppointmentWebApp
 {
     public class Startup
     {
@@ -20,6 +21,8 @@ namespace AppoitmentWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            services.AddAppointmentsServices();
             services.AddDataAccess(Configuration);
             services.AddSwaggerGen();
         }

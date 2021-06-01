@@ -1,29 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Appoitment.Entities;
-using AppoitmentWebApp.Models;
+using AppointmentWebApp.Models;
+using Appointment.Entities;
 
-namespace AppoitmentWebApp.Mappers
+namespace AppointmentWebApp.Mappers
 {
-    public static class AppoitmentMapper
+    public static class AppointmentMapper
     {
-        public static Appointment Map(EditAppoitment appoitment)
-            => new Appointment
+        public static Appointment.Entities.Appointment Map(CreateAppointment appointment, int userId)
+            => new Appointment.Entities.Appointment
             {
                 //TODO: Let the GUID generation on DB
                 EntityId = Guid.NewGuid(),
-                Name = appoitment.AppoitmentName,
-                Guests = appoitment.Guests,
-                CreatedById = appoitment.CreatedByUser,
-                StartDate = appoitment.StartDate,
-                EndDate = appoitment.EndDate
+                Name = appointment.AppointmentName,
+                Guests = appointment.Guests,
+                CreatedById = userId,
+                StartDate = appointment.StartDate,
+                EndDate = appointment.EndDate
+            };
+        
+        public static Appointment.Entities.Appointment Map(UpdateAppointment appointment)
+            => new Appointment.Entities.Appointment
+            {
+                //TODO: Let the GUID generation on DB
+                Name = appointment.AppointmentName,
+                Guests = appointment.Guests,
+                StartDate = appointment.StartDate,
+                EndDate = appointment.EndDate
             };
 
-        public static IReadOnlyList<Models.Appoitment> Map(IReadOnlyList<Appointment> appointments)
+        public static IReadOnlyList<Models.Appoitment> Map(IReadOnlyList<Appointment.Entities.Appointment> appointments)
             => appointments.Select(Map).ToList();
 
-        private static Models.Appoitment Map(Appointment appointment)
+        public static Models.Appoitment Map(Appointment.Entities.Appointment appointment)
             => new Models.Appoitment
             {
                 AppoitmentId = appointment.EntityId,

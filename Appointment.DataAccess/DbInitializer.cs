@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Appoitment.Entities;
+using Appointment.Entities;
 
-namespace Appoitment.DataAccess
+namespace Appointment.DataAccess
 {
     public static class DbInitializer
     {

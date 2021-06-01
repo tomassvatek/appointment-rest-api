@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Appoitment.DataAccess
+namespace Appointment.DataAccess
 {
     public class AppointmentContext : DbContext
     {
