@@ -2,7 +2,7 @@
 
 namespace AppointmentWebApp.Exceptions
 {
-    public class ForbiddenAccessException : Exception
+    public class ForbiddenAccessException : AppointmentAppException
     {
         public ForbiddenAccessException(string message) : base(message) 
         {

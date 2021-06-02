@@ -14,12 +14,11 @@ namespace Appointment.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Entities.Appointment>().HasKey(s => s.Id);
-            modelBuilder.Entity<Entities.Appointment>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.Name).IsRequired();
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.Guests).IsRequired();
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.EntityId).IsRequired();
             modelBuilder.Entity<Entities.Appointment>().HasIndex(s => s.EntityId);
-            modelBuilder.Entity<Entities.Appointment>().Property(s => s.EntityId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Entities.Appointment>().Property(s => s.EntityId).HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.CreatedById).IsRequired();
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.StartDate).IsRequired();
             modelBuilder.Entity<Entities.Appointment>().Property(s => s.EndDate).IsRequired();
@@ -31,13 +30,12 @@ namespace Appointment.DataAccess
                 .HasForeignKey(s => s.CreatedById);
 
             modelBuilder.Entity<Entities.User>().HasKey(s => s.Id);
-            modelBuilder.Entity<Entities.User>().Property(s => s.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Entities.User>().Property(s => s.FirstName).IsRequired();
             modelBuilder.Entity<Entities.User>().Property(s => s.LastName).IsRequired();
             modelBuilder.Entity<Entities.User>().Property(s => s.Email).IsRequired();
             modelBuilder.Entity<Entities.User>().Property(s => s.EntityId).IsRequired();
             modelBuilder.Entity<Entities.User>().HasIndex(s => s.EntityId);
-            modelBuilder.Entity<Entities.User>().Property(s => s.EntityId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Entities.User>().Property(s => s.EntityId).HasDefaultValueSql("NEWID()");
         }
     }
 }

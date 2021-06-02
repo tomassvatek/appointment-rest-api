@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Appointment.DataAccess.Exceptions;
 using AppointmentWebApp.Exceptions;
 using AppointmentWebApp.Models;
 using AppointmentWebApp.Services;
@@ -58,6 +57,14 @@ namespace AppointmentWebApp.Controllers
             {
                 return NotFound(e.Message);
             }
+            catch (ArgumentNullException e)
+            {
+                return BadRequest();
+            }
+            catch (InvalidDateRangeException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPut("{appointmentId}")]
@@ -76,6 +83,14 @@ namespace AppointmentWebApp.Controllers
             catch (ForbiddenAccessException e)
             {
                 return StatusCode(401, e.Message);
+            }
+            catch (ArgumentNullException e)
+            {
+                return BadRequest();
+            }
+            catch (InvalidDateRangeException e)
+            {
+                return BadRequest(e.Message);
             }
         }
 

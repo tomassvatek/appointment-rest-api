@@ -17,14 +17,12 @@ namespace Appointment.DataAccess
             {
                 new User
                 {
-                    FirstName = "John", LastName = "Doe", CompanyName = "Company A", Email = "john.doe@gmail.com",
-                    EntityId = Guid.NewGuid()
+                    FirstName = "John", LastName = "Doe", CompanyName = "Company A", Email = "john.doe@gmail.com"
                 },
                 new User
                 {
                     FirstName = "Jack", LastName = "Goodman", CompanyName = "Company B",
                     Email = "jack.goodman@gmail.com",
-                    EntityId = Guid.NewGuid()
                 }
             };
 

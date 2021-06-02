@@ -19,9 +19,9 @@ namespace Appointment.DataAccess.Repositories
         }
 
         public async Task<IReadOnlyList<User>> GetUsers()
-            => await Context.Users.ToListAsync();
+            => await Context.Users.AsNoTracking().ToListAsync();
 
         public async Task<User> GetUser(Guid entityId)
-            => await Context.Users.SingleOrDefaultAsync(s => s.EntityId == entityId);
+            => await Context.Users.AsNoTracking().SingleOrDefaultAsync(s => s.EntityId == entityId);
     }
 }

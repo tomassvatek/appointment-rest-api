@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AppointmentWebApp.Models;
-using Appointment.Entities;
 
 namespace AppointmentWebApp.Mappers
 {
@@ -11,30 +9,18 @@ namespace AppointmentWebApp.Mappers
         public static Appointment.Entities.Appointment Map(CreateAppointment appointment, int userId)
             => new Appointment.Entities.Appointment
             {
-                //TODO: Let the GUID generation on DB
-                EntityId = Guid.NewGuid(),
                 Name = appointment.AppointmentName,
                 Guests = appointment.Guests,
                 CreatedById = userId,
                 StartDate = appointment.StartDate,
                 EndDate = appointment.EndDate
             };
-        
-        public static Appointment.Entities.Appointment Map(UpdateAppointment appointment)
-            => new Appointment.Entities.Appointment
-            {
-                //TODO: Let the GUID generation on DB
-                Name = appointment.AppointmentName,
-                Guests = appointment.Guests,
-                StartDate = appointment.StartDate,
-                EndDate = appointment.EndDate
-            };
 
-        public static IReadOnlyList<Models.Appoitment> Map(IReadOnlyList<Appointment.Entities.Appointment> appointments)
+        public static IReadOnlyList<Appoitment> Map(IReadOnlyList<Appointment.Entities.Appointment> appointments)
             => appointments.Select(Map).ToList();
 
-        public static Models.Appoitment Map(Appointment.Entities.Appointment appointment)
-            => new Models.Appoitment
+        public static Appoitment Map(Appointment.Entities.Appointment appointment)
+            => new Appoitment
             {
                 AppoitmentId = appointment.EntityId,
                 AppoitmentName = appointment.Name,

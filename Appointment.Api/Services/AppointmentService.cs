@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Appointment.DataAccess.Exceptions;
 using Appointment.DataAccess.Repositories;
 using AppointmentWebApp.Exceptions;
 using AppointmentWebApp.Mappers;
@@ -56,21 +55,40 @@ namespace AppointmentWebApp.Services
 
         public async Task<Guid> CreateAppointmentAsync(CreateAppointment appointment)
         {
-            var user = await EnsureGetUserAsync(appointment.CreatedByUser);
-            var entity = AppointmentMapper.Map(appointment, user.Id);
+            if (appointment == null)
+                throw new ArgumentNullException(nameof(appointment));
 
-            var entityId = await _appointmentRepository.CreateAppointmentAsync(entity);
-            return entityId;
+            var user = await EnsureGetUserAsync(appointment.CreatedByUser);
+            var originalAppointment = AppointmentMapper.Map(appointment, user.Id);
+            ValidateDateRange(originalAppointment);
+
+            await _appointmentRepository.CreateAppointmentAsync(originalAppointment);
+            await _appointmentRepository.SaveAsync();
+            return originalAppointment.EntityId;
         }
 
         public async Task UpdateAppointmentAsync(Guid userId, Guid appointmentId, UpdateAppointment appointment)
         {
+            if (appointment == null)
+                throw new ArgumentNullException(nameof(appointment));
+
             var originalAppointment = await EnsureGetAppointmentAsync(appointmentId);
             var user = await EnsureGetUserAsync(userId);
             ValidateUserAccess(user, originalAppointment);
 
-            var entity = AppointmentMapper.Map(appointment);
-            await _appointmentRepository.UpdateAppointmentAsync(appointmentId, entity);
+            ValidateDateRange(originalAppointment);
+            UpdateAppointment(originalAppointment, appointment);
+            _appointmentRepository.UpdateAppointment(originalAppointment);
+            await _appointmentRepository.SaveAsync();
+        }
+
+        private void UpdateAppointment(Appointment.Entities.Appointment originalAppointment,
+            UpdateAppointment appointment)
+        {
+            originalAppointment.Name = appointment.AppointmentName;
+            originalAppointment.Guests = appointment.Guests;
+            originalAppointment.StartDate = appointment.StartDate;
+            originalAppointment.EndDate = appointment.EndDate;
         }
 
         public async Task DeleteAppointmentAsync(Guid userId, Guid appointmentId)
@@ -78,8 +96,9 @@ namespace AppointmentWebApp.Services
             var originalAppointment = await EnsureGetAppointmentAsync(appointmentId);
             var user = await EnsureGetUserAsync(userId);
             ValidateUserAccess(user, originalAppointment);
-            
+
             await _appointmentRepository.DeleteAppointmentAsync(appointmentId);
+            await _appointmentRepository.SaveAsync();
         }
 
         private async Task<User> EnsureGetUserAsync(Guid userId)
@@ -110,11 +129,20 @@ namespace AppointmentWebApp.Services
         {
             if (user.Id != appointment.CreatedById)
             {
-                _logger.LogWarning($"Forbidden access to appointment '{appointment.EntityId}'");
+                _logger.LogWarning("Forbidden access to appointment '{entityId}'", appointment.EntityId);
                 throw new ForbiddenAccessException(
                     $"The user '{user.EntityId}' can't change the appointment '{appointment.EntityId}'.");
             }
         }
-        
+
+        private void ValidateDateRange(Appointment.Entities.Appointment appointment)
+        {
+            if (appointment.StartDate > appointment.EndDate)
+            {
+                _logger.LogWarning("Invalid appointment date range '{startDate}' - '{endDate}", appointment.StartDate,
+                    appointment.EndDate);
+                throw new InvalidDateRangeException("Invalid date range.");
+            }
+        }
     }
 }

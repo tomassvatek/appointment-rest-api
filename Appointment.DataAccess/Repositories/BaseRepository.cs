@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Appointment.DataAccess.Repositories
 {
-    public abstract class BaseRepository : IDisposable
+    public interface IBaseRepository
+    {
+        Task<int> SaveAsync();
+    }
+    
+    public abstract class BaseRepository : IBaseRepository, IDisposable
     {
         protected AppointmentContext Context;
 
@@ -10,6 +16,9 @@ namespace Appointment.DataAccess.Repositories
         {
             Context = context;
         }
+
+        public Task<int> SaveAsync()
+            => Context.SaveChangesAsync();
 
         public void Dispose()
         {
