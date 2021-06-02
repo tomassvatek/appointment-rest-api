@@ -41,7 +41,7 @@ namespace AppointmentWebApp.Controllers
             }
             catch (EntityNotFoundException e)
             {
-                return NotFound($"Appointment '{appointmentId}' not found.");
+                return NotFound(e.Message);
             }
         }
 
@@ -59,7 +59,7 @@ namespace AppointmentWebApp.Controllers
             }
             catch (ArgumentNullException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
             catch (InvalidDateRangeException e)
             {
@@ -86,7 +86,7 @@ namespace AppointmentWebApp.Controllers
             }
             catch (ArgumentNullException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
             catch (InvalidDateRangeException e)
             {
